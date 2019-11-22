@@ -160,3 +160,10 @@ transactionsByCurrencies.forEach((k, v) -> {
 });
 
 {% endhighlight v%}
+
+### Sorting in Java 8
+
+{% highlight java %}
+List<Hero> heroes = HeroList.HEROES;
+heroes.sort(Comparator.comparing(Hero::getName));
+{% endhighlight %}
