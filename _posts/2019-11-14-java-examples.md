@@ -171,14 +171,72 @@ heroes.sort(Comparator.comparing(Hero::getName));
 ### Predicate 
 
 ``` java
-public static boolean hasColor(List<Color> colors, Predicate<Color> p) {
-    for (Color color: colors) {
-        if (p.test(color)) {
-            return true;
-        }
+import java.util.ArrayList;
+import java.util.List;
+
+public class PredicateExample {
+
+    enum Color {
+        RED,
+        GREEN,
+        BLUE,
+        BLACK,
+        WHITE,
+        PURPLE
     }
-    return false;
+
+    @FunctionalInterface
+    interface Predicate<T> {
+        boolean test(T t);
+    }
+
+    static boolean hasColor(List<Color> colors, Predicate<Color> p) {
+        for (Color color: colors) {
+            if (p.test(color)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void main(String[] args) {
+        List<Color> colors = new ArrayList<>();
+        colors.add(Color.RED);
+        colors.add(Color.BLUE);
+        colors.add(Color.WHITE);
+        boolean hasBlue = hasColor(colors, c -> c.equals(Color.BLACK));
+        System.out.println(hasBlue);
+    }
 }
 
-boolean hasBlue = hasColor(colors, c -> c.equals(Color.BLACK));
+```
+
+### Consumer 
+
+``` java
+import java.util.ArrayList;
+import java.util.List;
+
+public class ConsumerExample {
+
+    @FunctionalInterface
+    interface Consumer<T> {
+        void accept(T t);
+    }
+
+    static <T> void forEach(List<T> list, Consumer<T> c) {
+        for (T i: list) {
+            c.accept(i);
+        }
+    }
+
+    public static void main(String[] args) {
+        List<String> fruits = new ArrayList<>();
+        fruits.add("Apple");
+        fruits.add("Orange");
+        fruits.add("Grapes");
+        fruits.add("Watermelon");
+        forEach(fruits, System.out::println);
+    }
+}
 ```
