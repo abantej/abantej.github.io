@@ -7,7 +7,7 @@ categories: java
 
 ### Printing Elements
 
-{% highlight java %}
+``` java
 
 // Old
 for (Hero hero: heroes) {
@@ -17,11 +17,11 @@ for (Hero hero: heroes) {
 // Java 8
 heroes.forEach(hero -> System.out.println(hero.getName()));
 
-{% endhighlight %}
+```
 
 ### Sorting Elements
 
-{% highlight java %}
+``` java
 
 // Old
 Collections.sort(heroes, new Comparator<Hero>() {
@@ -33,11 +33,11 @@ Collections.sort(heroes, new Comparator<Hero>() {
 // Java 8
 heroes.sort(Comparator.comparing(Hero::getName));
 
-{% endhighlight %}
+```
 
 ### Listing hidden files
 
-{% highlight java %}
+``` java
 
 // Old
 File[] hiddenFiles = new File(".").listFiles(new FileFilter() {
@@ -50,11 +50,11 @@ File[] hiddenFiles = new File(".").listFiles(new FileFilter() {
 // Java 8
 hiddenFiles = new File(".").listFiles(File::isHidden);
 
-{% endhighlight %}
+```
 
 ### Passing Methods
 
-{% highlight java %}
+``` java
 private static class Hero {
     private String name;
     private Attribute attribute;
@@ -111,7 +111,7 @@ List<Hero> agilityHeroes = filterHeroes(heroes, Hero::isAgilityHero);
 List<Hero> intHeroes = filterHeroes(heroes, Hero::isIntelligenceHero);
 
 
-// Using lambda
+// Lambda
 
 List<Hero> strengthHeroes = filterHeroes(heroes, (Hero h) -> Attribute.STRENGTH.equals(h.getAttribute()));
 
@@ -120,11 +120,11 @@ List<Hero> agilityHeroes = filterHeroes(heroes, (Hero h) -> Attribute.AGILITY.eq
 List<Hero> intHeroes = filterHeroes(heroes, (Hero h) -> Attribute.INTELLIGENCE.equals(h.getAttribute()));
 ...
 
-{% endhighlight %}
+```
 
 ### Grouping and filtering
 
-{% highlight java %}
+``` java
 
 // Old
 Map<Currency, List<Transaction>> transactionsByCurrencies = new HashMap<>();
@@ -159,11 +159,26 @@ transactionsByCurrencies.forEach((k, v) -> {
     v.forEach((Transaction t) -> System.out.println(t.getCurrency() + " " + t.getPrice()));
 });
 
-{% endhighlight v%}
+```
 
-### Sorting in Java 8
+### Sorting
 
-{% highlight java %}
+``` java
 List<Hero> heroes = HeroList.HEROES;
 heroes.sort(Comparator.comparing(Hero::getName));
-{% endhighlight %}
+```
+
+### Predicate 
+
+``` java
+public static boolean hasColor(List<Color> colors, Predicate<Color> p) {
+    for (Color color: colors) {
+        if (p.test(color)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+boolean hasBlue = hasColor(colors, c -> c.equals(Color.BLACK));
+```
