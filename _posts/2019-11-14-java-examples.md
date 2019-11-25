@@ -241,6 +241,33 @@ public class ConsumerExample {
 }
 ```
 
+### Function
+
+``` java
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class FunctionExample {
+    private interface Function<T, R> {
+        R apply(T t);
+    }
+
+    static <T, R> List<R> map(List<T> list, Function<T, R> f) {
+        List<R> result = new ArrayList<>();
+        for (T s : list) {
+            result.add(f.apply(s));
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        List<Integer> list = map(Arrays.asList("lambdas", "in", "action"), String::length);
+        list.forEach(System.out::println);
+    }
+}
+```
+
 ### Exceptions in Lambda
 
 ``` java
