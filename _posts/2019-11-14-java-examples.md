@@ -240,3 +240,31 @@ public class ConsumerExample {
     }
 }
 ```
+
+### Exceptions in Lambda
+
+``` java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.function.Function;
+
+public class BufferedReaderExample {
+
+    @FunctionalInterface
+    interface BufferedReaderProcessor {
+        String process(BufferedReader b) throws IOException;
+    }
+
+    public static void main(String[] args) {
+        BufferedReaderProcessor p = (BufferedReader br) -> br.readLine();
+
+        Function<BufferedReader, String> f = (BufferedReader b) -> {
+            try {
+                return b.readLine();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        };
+    }
+}
+```
