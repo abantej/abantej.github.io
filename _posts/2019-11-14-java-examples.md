@@ -6,9 +6,7 @@ categories: java
 ---
 
 ### Printing Elements
-
 ``` java
-
 // Old
 for (Hero hero: heroes) {
     System.out.println(hero.getName());
@@ -16,11 +14,9 @@ for (Hero hero: heroes) {
 
 // Java 8
 heroes.forEach(hero -> System.out.println(hero.getName()));
-
 ```
 
 ### Sorting Elements
-
 ``` java
 
 // Old
@@ -36,9 +32,7 @@ heroes.sort(Comparator.comparing(Hero::getName));
 ```
 
 ### Listing hidden files
-
 ``` java
-
 // Old
 File[] hiddenFiles = new File(".").listFiles(new FileFilter() {
     @Override
@@ -46,14 +40,11 @@ File[] hiddenFiles = new File(".").listFiles(new FileFilter() {
         return file.isHidden();
     }
 });
-
 // Java 8
 hiddenFiles = new File(".").listFiles(File::isHidden);
-
 ```
 
 ### Passing Methods
-
 ``` java
 private static class Hero {
     private String name;
@@ -88,7 +79,6 @@ public interface Predicate<T> {
     boolean test(T t);
 }
 
-
 ...
 
 static List<Hero> filterHeroes(List<Hero> heroes, Predicate<Hero> p) {
@@ -100,7 +90,6 @@ static List<Hero> filterHeroes(List<Hero> heroes, Predicate<Hero> p) {
     }
     return result;
 }
-
 
 // Using predicates
 
@@ -123,9 +112,7 @@ List<Hero> intHeroes = filterHeroes(heroes, (Hero h) -> Attribute.INTELLIGENCE.e
 ```
 
 ### Grouping and filtering
-
 ``` java
-
 // Old
 Map<Currency, List<Transaction>> transactionsByCurrencies = new HashMap<>();
 for (Transaction transaction: transactions) {
@@ -162,14 +149,12 @@ transactionsByCurrencies.forEach((k, v) -> {
 ```
 
 ### Sorting
-
 ``` java
 List<Hero> heroes = HeroList.HEROES;
 heroes.sort(Comparator.comparing(Hero::getName));
 ```
 
-### Predicate 
-
+### Predicate
 ``` java
 import java.util.ArrayList;
 import java.util.List;
@@ -208,11 +193,9 @@ public class PredicateExample {
         System.out.println(hasBlue);
     }
 }
-
 ```
 
-### Consumer 
-
+### Consumer
 ``` java
 import java.util.ArrayList;
 import java.util.List;
@@ -269,7 +252,6 @@ public class FunctionExample {
 ```
 
 ### Exceptions in Lambda
-
 ``` java
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -292,6 +274,86 @@ public class BufferedReaderExample {
                 throw new RuntimeException(e);
             }
         };
+    }
+}
+```
+
+### Lambda Type Checking Process
+
+``` java
+List<Apple> heavierThan150g = filter(inventory, (Apple a) -> a.getWeight() > 150);
+```
+
+1. You look up the declaration of the filter method.
+2. It expects as the second formal parameter an object of type Predicate<Apple> (the target type).
+3. Predicate<Apple> is a functional interface defining a single abstract method called test.
+4. The method test describes a function descriptor that accepts an Apple and returns a boolean.
+5. Any actual argument to the filter method needs to match this requirement.
+
+### Decrypt Base64 Encryption
+
+``` java
+import java.security.GeneralSecurityException;
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+import javax.xml.bind.DatatypeConverter;
+import java.util.Base64;
+
+public class Base64Decryptor {
+    private static byte[] des_cbc_decrypt(
+            byte[] encrypted_password,
+            byte[] decryption_key,
+            byte[] iv)
+            throws GeneralSecurityException {
+
+        Cipher cipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
+        cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(decryption_key, "DES"), new IvParameterSpec(iv));
+        return cipher.doFinal(encrypted_password);
+    }
+
+    private static byte[] decrypt_v4(
+            byte[] encrypted,
+            byte[] db_system_id)
+            throws GeneralSecurityException {
+        byte[] encrypted_password = Base64.getDecoder().decode(encrypted);
+        byte[] salt = DatatypeConverter.parseHexBinary("051399429372e8ad");
+
+// key = db_system_id + salt
+        byte[] key = new byte[db_system_id.length + salt.length];
+        System.arraycopy(db_system_id, 0, key, 0, db_system_id.length);
+        System.arraycopy(salt, 0, key, db_system_id.length, salt.length);
+
+        java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
+        for (int i = 0; i < 42; i++) {
+            key = md.digest(key);
+        }
+
+// secret_key = key [0..7]
+        byte[] secret_key = new byte[8];
+        System.arraycopy(key, 0, secret_key, 0, 8);
+
+// iv = key [8..]
+        byte[] iv = new byte[key.length - 8];
+        System.arraycopy(key, 8, iv, 0, key.length - 8);
+
+        return des_cbc_decrypt(encrypted_password, secret_key, iv);
+    }
+
+    public static void main(String[] argv) {
+        try {
+
+            byte[] encrypted = argv[0].getBytes();
+            byte[] db_system_id = argv[1].getBytes();
+
+            byte[] x = decrypt_v4(encrypted, db_system_id);
+
+            String password = new String(x);
+
+            System.out.println(password);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
     }
 }
 ```
