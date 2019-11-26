@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Decrypt Base64 Encryption using Java"
-date:   2019-11-26 11:26:00 +0800
+date:   2019-11-26 11:20:00 +0800
 categories: java base64
 ---
 
