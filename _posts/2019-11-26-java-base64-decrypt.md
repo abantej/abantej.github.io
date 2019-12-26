@@ -7,7 +7,7 @@ categories: java base64
 
 ### Decrypt Base64 Encryption
 
-``` java
+```java
 import java.security.GeneralSecurityException;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;

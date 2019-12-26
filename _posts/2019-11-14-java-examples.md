@@ -6,7 +6,7 @@ categories: java
 ---
 
 ### Printing Elements
-``` java
+```java
 // Old
 for (Hero hero: heroes) {
     System.out.println(hero.getName());
@@ -17,7 +17,7 @@ heroes.forEach(hero -> System.out.println(hero.getName()));
 ```
 
 ### Sorting Elements
-``` java
+```java
 
 // Old
 Collections.sort(heroes, new Comparator<Hero>() {
@@ -32,7 +32,7 @@ heroes.sort(Comparator.comparing(Hero::getName));
 ```
 
 ### Listing hidden files
-``` java
+```java
 // Old
 File[] hiddenFiles = new File(".").listFiles(new FileFilter() {
     @Override
@@ -45,7 +45,7 @@ hiddenFiles = new File(".").listFiles(File::isHidden);
 ```
 
 ### Passing Methods
-``` java
+```java
 private static class Hero {
     private String name;
     private Attribute attribute;
@@ -112,7 +112,7 @@ List<Hero> intHeroes = filterHeroes(heroes, (Hero h) -> Attribute.INTELLIGENCE.e
 ```
 
 ### Grouping and filtering
-``` java
+```java
 // Old
 Map<Currency, List<Transaction>> transactionsByCurrencies = new HashMap<>();
 for (Transaction transaction: transactions) {
@@ -149,13 +149,13 @@ transactionsByCurrencies.forEach((k, v) -> {
 ```
 
 ### Sorting
-``` java
+```java
 List<Hero> heroes = HeroList.HEROES;
 heroes.sort(Comparator.comparing(Hero::getName));
 ```
 
 ### Predicate
-``` java
+```java
 import java.util.ArrayList;
 import java.util.List;
 
@@ -196,7 +196,7 @@ public class PredicateExample {
 ```
 
 ### Consumer
-``` java
+```java
 import java.util.ArrayList;
 import java.util.List;
 
@@ -226,7 +226,7 @@ public class ConsumerExample {
 
 ### Function
 
-``` java
+```java
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -252,7 +252,7 @@ public class FunctionExample {
 ```
 
 ### Exceptions in Lambda
-``` java
+```java
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.function.Function;
@@ -280,7 +280,7 @@ public class BufferedReaderExample {
 
 ### Lambda Type Checking Process
 
-``` java
+```java
 List<Apple> heavierThan150g = filter(inventory, (Apple a) -> a.getWeight() > 150);
 ```
 
@@ -292,7 +292,7 @@ List<Apple> heavierThan150g = filter(inventory, (Apple a) -> a.getWeight() > 150
 
 ### Decrypt Base64 Encryption
 
-``` java
+```java
 import java.security.GeneralSecurityException;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;

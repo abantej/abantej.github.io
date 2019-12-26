@@ -7,7 +7,7 @@ categories: scala
 
 ### Values, Variables, Types
 
-``` scala
+```scala
 object ValuesVariablesTypes extends App {
   val x: Int = 42
   println(x)
@@ -35,7 +35,7 @@ object ValuesVariablesTypes extends App {
 ```
 
 ### Expressions
-``` scala
+```scala
 object Expressions extends App {
 
   val x = 1 + 2 // EXPRESSION
@@ -100,7 +100,7 @@ object Expressions extends App {
 ```
 
 ### Functions
-``` scala
+```scala
 object Functions extends App {
 
   def aFunction(a: String, b: Int) = {
@@ -179,7 +179,7 @@ object Functions extends App {
 ```
 
 ### Pass by value VS Pass by name
-``` scala
+```scala
 object CBNvsCBV extends App {
 
   def calledByValue(x: Long): Unit = {
@@ -224,5 +224,48 @@ object DefaultArgs extends App {
    */
 
   savePicture(height = 600, width = 800, format = "bmp")
+}
+```
+
+### String Interpolators
+
+```scala
+object StringOps extends App {
+
+  val str: String = "Hello, I am learning Scala"
+
+  println(str.charAt(2))
+  println(str.substring(7, 11))
+  println(str.split(" ").toList)
+  println(str.startsWith("Hello"))
+  println(str.replace(" ", "-"))
+  println(str.toLowerCase())
+  println(str.length())
+
+  // scala
+  val aNumberString = "45"
+  val aNumber = aNumberString.toInt
+  println('a' +: aNumberString :+ 'z')
+  println(str.reverse)
+  println(str.take(2))
+
+  // Scala-specific String interpolation
+  val name = "David"
+  val age = 12
+  val greeting = s"Hello, my name is $name and I am $age years old."
+  val anotherGreeting = s"Hello, my name is $name and I will be turning ${age + 1} years old."
+
+  println(greeting)
+  println(anotherGreeting)
+
+  // F-interpolators
+  val speed = 1.2f
+  val myth = f"$name%s can eat $speed%2.2f burgers per minute"
+  println(myth)
+
+  // raw-interpolator
+  println(raw"This is a \n newline")
+  val escaped = "This is a \n newline"
+  println(escaped)
 }
 ```
