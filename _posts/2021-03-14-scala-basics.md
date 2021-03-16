@@ -211,7 +211,7 @@ Your class is a physical type
 ```scala
 object RolePlayingGame {
   object Skill {
-    def vermillion(chant: String): Unit = {
+    def vermillion(chant: String = "Chanting.."): Unit = {
       println(chant)
     }
   }
@@ -227,7 +227,35 @@ object RolePlayingGame {
     println(s"Your total damage is $currentDamage")
     levelUpSkill(2)
     Skill vermillion "Chanting vermillion spell..."
+    Skill.vermillion()
+    val add = (x: Int, y: Int) => x + y
+    println(add(300, 500))
   }
 }
+```
+```
+Your total damage is 7100
+Level up skill by 2
+Chanting vermillion spell...
+Chanting..
+800
+```
 
+## Higher Order Functions
+```scala
+object RolePlayingGame {
+  def averageHeroLevel(hero1: Int,
+           hero2: Int,
+           hero3: Int,
+           f: (Int, Int) => Int):
+  Double = f(f(hero1, hero2), hero3);
+
+  def main(args: Array[String]): Unit = {
+    val result = averageHeroLevel(40, 60, 80, (x, y) => (x + y)/2 )
+    println(result)
+  }
+}
+```
+```
+65.0
 ```
